@@ -3,11 +3,21 @@
 # Prompt for the component's name
 read -p "Enter the name of the new Svelte component: " component_name_raw
 
-# Transform input to CamelCase
-component_name=$(echo "${component_name_raw}" | sed -r 's/(^|-)(\w)/\U\2/g')
+# Transform input to CamelCase using awk
+component_name=$(echo "${component_name_raw}" | awk '{
+    gsub(/[-_ ]+/, " ");  # Replace all sequences of hyphens, underscores, and spaces with a single space
+    n = split($0, words, " ");  # Split the string into words based on spaces, return number of parts
+    result = "";  # Initialize result string
+    for(i = 1; i <= n; i++) {  # Iterate over each word using sequential indices
+        word = words[i];
+        result = result toupper(substr(word, 1, 1)) tolower(substr(word, 2));  # Capitalize the first letter, lower the rest
+    }
+    print result;
+}')
 
-# Replace hyphens with underscores for the export name
-export_name=$(echo "${component_name}" | tr '-' '_')
+echo "CamelCase name: $component_name"
+
+
 
 # Define paths
 component_dir="../src/lib"  # Adjust path to the correct relative position from the 'tools' folder
@@ -42,6 +52,6 @@ if [ ! -f "$index_path" ]; then
 fi
 
 # Add export to index.ts
-echo "export { default as ${export_name} } from './${component_name}.svelte';" >> "$index_path"
+echo "export { default as ${component_name} } from './${component_name}.svelte';" >> "$index_path"
 
 echo "Updated index.ts with ${component_name}"

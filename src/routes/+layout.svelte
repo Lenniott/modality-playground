@@ -2,4 +2,11 @@
 	import '../app.css';
 </script>
 
-<slot />
+
+<nav class="p-8 flex gap-4 sticky top-0 ">
+	<a href="/">Home</a>
+	<a href="/design-system">Design System</a>
+	</nav>
+<main class="max-w-5xl mx-auto p-4">
+	<slot />
+</main>
