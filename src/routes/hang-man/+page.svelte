@@ -1,6 +1,7 @@
-
-
 <script lang="ts">
+  import { correctLetters, incorrectLetters } from '$lib/lettersStore';
+  import Keyboard from '$lib/Keyboard.svelte';
+
   let input: HTMLInputElement;
   let guessedLetters: string[] = [];
   let rightLetters: string[] = [];
@@ -13,6 +14,10 @@
     displayWord = wordToGuess.split('').map(char => (rightLetters.includes(char) ? char : (char === ' ' || char === '-') ? char : '_'));
     console.log('Display word updated:', displayWord);
   };
+
+  // Update the stores
+  $: correctLetters.set(rightLetters);
+  $: incorrectLetters.set(guessedLetters);
 
   // Log the current state for debugging
   $: console.log('Guessed Letters:', guessedLetters);
@@ -79,9 +84,11 @@
 <div>
   <h2>Hangman Game</h2>
   <div>
-    <h3>Word to Guess</h3>
+      <div>
+    <p>{message}</p> <!-- Display the message -->
+  </div>
     <div>
-    <p>for curiosity to spark,</p>
+      <p>for curiosity to spark,</p>
       {#each displayWord as char, index}
         <span>{char}</span>
       {/each}
@@ -93,25 +100,11 @@
     <button on:click={undoLastGuess}>Back One Step</button>
     <button on:click={resetGame}>Clear</button>
   </div>
-  <div>
-    <h3>Guessed Letters</h3>
-    <div>
-      {#each guessedLetters as letter (letter)}
-        <span>{letter}</span>
-      {/each}
-    </div>
-  </div>
-  <div>
-    <h3>Correct Letters</h3>
-    <div>
-      {#each rightLetters as letter (letter)}
-        <span>{letter}</span>
-      {/each}
-    </div>
-  </div>
-  <div>
-    <p>{message}</p> <!-- Display the message -->
-  </div>
-</div>
-
   
+    
+
+  <div>
+    <Keyboard correctLetters={rightLetters} incorrectLetters={guessedLetters} />
+  </div>
+
+  </div>
