@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { correctLetters, incorrectLetters } from './lettersStore';
+  import { correctLetters, incorrectLetters } from './lettersStore.js';
   import { derived } from 'svelte/store';
+
 
   const keys = [
     ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
@@ -9,8 +10,8 @@
   ];
 
   const getKeyClass = (key: string, correct: string[], incorrect: string[]) => {
-    if (correct.includes(key.toLowerCase())) return 'bg-green-500';
-    if (incorrect.includes(key.toLowerCase())) return 'bg-red-500';
+    if (correct.includes(key.toLowerCase())) return 'bg-blue';
+    if (incorrect.includes(key.toLowerCase())) return 'bg-orange';
     return 'bg-gray-300';
   };
 
@@ -18,7 +19,7 @@
   const incorrectLettersValue = derived(incorrectLetters, $incorrectLetters => $incorrectLetters);
 </script>
 
-<style>
+<style lang="postcss">
   .key {
     @apply size-6 sm:size-10 flex items-center justify-center m-1 rounded;
   }

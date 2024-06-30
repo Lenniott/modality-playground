@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { correctLetters, incorrectLetters } from '$lib/lettersStore';
+  import { correctLetters, incorrectLetters } from '$lib/lettersStore.js';
   import Keyboard from '$lib/Keyboard.svelte';
 
   let input: HTMLInputElement;
   let guessedLetters: string[] = [];
   let rightLetters: string[] = [];
   let message: string = '';
-  let wordToGuess = "we must first be comfortable with the uncertainty of our knowledge gaps and have the self-belief that through exploration we will";
+  let wordToGuess = "we must be comfortable with the uncertainty of knowledge gaps and believe that through exploration and determination we will";
   let displayWord: string[] = wordToGuess.split('').map(char => (char === ' ' || char === '-') ? char : '_');
 
   // Update displayWord based on rightLetters
@@ -79,6 +79,13 @@
     displayWord = wordToGuess.split('').map(char => (char === ' ' || char === '-') ? char : '_');
     console.log('Game reset');
   }
+
+   // Function to focus the input element
+   function focusInput() {
+    if (input) {
+      input.focus();
+    }
+  }
 </script>
 
 <div>
@@ -87,21 +94,20 @@
       <div>
     <p>{message}</p> <!-- Display the message -->
   </div>
-    <div>
+  <button on:click={focusInput} >
       <p>for curiosity to spark,</p>
       {#each displayWord as char, index}
         <span>{char}</span>
       {/each}
-    </div>
+    </button>
     <p>find the answer</p>
   </div>
   <div>
-    <input type="text" maxlength="1" bind:this={input} on:input={handleInput} />
+    <input type="text" maxlength="1" bind:this={input} on:input={handleInput}>
     <button on:click={undoLastGuess}>Back One Step</button>
     <button on:click={resetGame}>Clear</button>
   </div>
   
-    
 
   <div>
     <Keyboard correctLetters={rightLetters} incorrectLetters={guessedLetters} />
