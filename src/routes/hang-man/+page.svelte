@@ -133,6 +133,7 @@
       input.focus();
     }
   });
+
 </script>
 
 <style lang="postcss">
@@ -172,12 +173,14 @@
 <div class="flex flex-col items-center space-y-4 px-2">
   <div class="flex flex-col gap-4 relative">
     <button on:click={focusInput} class="p-4 flex flex-wrap text-slate-900 items-start justify-start shadow-lg rounded-lg bg-slate-200 z-10 text-xl italic font-serif">
-      <p>For curiosity to spark,</p>
-      <div>
+
+      <div class="text-left">
+      "For curiosity to spark,
         {#each displayWord as char}
           <span class="{char !== '_' ? '' : 'text-slate-400 font-thin'}">{char}</span>
         {/each}
-        <div><p> find the answer.</p></div>
+        find the answer."
+       
       </div>
     </button>
     <input type="text" maxlength="1" bind:this={input} on:input={handleInput} class="absolute top-[50%] left-[50%] w-1" />
