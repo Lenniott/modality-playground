@@ -33,7 +33,7 @@
   let timer: number | null = null;
   let startTime: number | null = null;
   let time: number = 0;
-
+  let numberOfClicks: number = 0;
   // Update displayWord based on rightLetters
   const updateDisplayWord = () => {
     displayWord = wordToGuess
@@ -68,31 +68,18 @@
         time = Math.floor(elapsedTime / 1000);
       }, 1000);
     }
-
     if (letter.length > 0 && /^[a-z]$/.test(letter)) {
       if (!guessedLetters.includes(letter) && !rightLetters.includes(letter)) {
         if (wordToGuess.includes(letter)) {
           rightLetters = [...rightLetters, letter];
           updateDisplayWord();
-          message = `Correct! Added letter: ${letter}`;
-          console.log(`Correct guess: ${letter}`);
         } else {
           guessedLetters = [...guessedLetters, letter];
-          message = `Incorrect guess: ${letter}`;
-          console.log(`Incorrect guess: ${letter}`);
+          numberOfClicks++
         }
-      } else {
-        if (rightLetters.includes(letter)) {
-          message = `Letter '${letter}' already guessed correctly`;
-          console.log(`Letter '${letter}' already guessed correctly`);
-        } else if (guessedLetters.includes(letter)) {
-          message = `Letter '${letter}' already guessed incorrectly`;
-          console.log(`Letter '${letter}' already guessed incorrectly`);
-        }
-      }
-    } else {
-      message = 'Please enter a valid letter';
-      console.log('Invalid input');
+        
+        
+      }else {numberOfClicks++}
     }
 
     // Set the focused key
@@ -115,30 +102,12 @@
     focusInput()
   }
 
-  function undoLastGuess() {
-    if (guessedLetters.length > 0) {
-      const lastGuessedLetter = guessedLetters.pop();
-      guessedLetters = [...guessedLetters];
-      message = `Removed incorrect guess: ${lastGuessedLetter}`;
-      console.log(`Removed incorrect guess: ${lastGuessedLetter}`);
-    } else if (rightLetters.length > 0) {
-      const lastRightLetter = rightLetters.pop();
-      rightLetters = [...rightLetters];
-      updateDisplayWord();
-      message = `Removed correct guess: ${lastRightLetter}`;
-      console.log(`Removed correct guess: ${lastRightLetter}`);
-    } else {
-      message = 'No guesses to undo';
-      console.log('No guesses to undo');
-    }
-    updateDisplayWord();
-    console.log('Guessed Letters after undo:', guessedLetters);
-    console.log('Right Letters after undo:', rightLetters);
-  }
+ 
 
   function resetGame() {
     guessedLetters = [];
     rightLetters = [];
+    numberOfClicks = 0;
     message = '';
     displayWord = wordToGuess.split('').map((char) => (char === ' ' || char === '-' ? char : '_'));
     if (timer) {
@@ -148,6 +117,9 @@
     startTime = null;
     time = 0;
     console.log('Game reset');
+    if (input) {
+      input.focus();
+    }
   }
 
   function focusInput() {
@@ -169,7 +141,7 @@
   }
 
   .focused {
-    @apply bg-slate-300
+    @apply bg-slate-200
   }
 
   .correct {
@@ -183,38 +155,38 @@
   }
 
   .neutral {
-    @apply bg-slate-300 ;
+    @apply bg-slate-200 ;
   }
 
   @keyframes correctAnimation {
-    0% { background-color: blue; border: 2px solid #CBD5E1; }
-    100% { background-color: #CBD5E1; border: 2px solid blue; }
+    0% { background-color: blue; border: 2px solid #E2E8F0; }
+    100% { background-color: #E2E8F0; border: 2px solid blue; }
   }
 
   @keyframes incorrectAnimation {
-    0% { background-color: orange; border: 2px solid #CBD5E1; }
-    100% { background-color: #CBD5E1; border: 2px solid orange; }
+    0% { background-color: orange; border: 2px solid #E2E8F0; }
+    100% { background-color: #E2E8F0; border: 2px solid orange; }
   }
 </style>
 
-<div class="flex flex-col items-center space-y-4">
+<div class="flex flex-col items-center space-y-4 px-2">
   <div class="flex flex-col gap-4 relative">
-    <button on:click={focusInput} class="p-4 flex flex-wrap items-start justify-start shadow-lg bg-white z-10 text-xl">
-      <p>for curiosity to spark,</p>
+    <button on:click={focusInput} class="p-4 flex flex-wrap text-slate-900 items-start justify-start shadow-lg rounded-lg bg-slate-200 z-10 text-xl italic font-serif">
+      <p>For curiosity to spark,</p>
       <div>
         {#each displayWord as char}
-          {char}
+          <span class="{char !== '_' ? '' : 'text-slate-400 font-thin'}">{char}</span>
         {/each}
-        <div><p> find the answer</p></div>
+        <div><p> find the answer.</p></div>
       </div>
     </button>
-    <input type="text" maxlength="1" bind:this={input} on:input={handleInput} class="absolute top-[50%] left-[50%]" />
+    <input type="text" maxlength="1" bind:this={input} on:input={handleInput} class="absolute top-[50%] left-[50%] w-1" />
   </div>
-  <div class="w-full flex flex-col gap-4 sticky bg-white">
+  <div class="w-full flex flex-col gap-4 sticky bg-white text-slate-900 ">
   <div class=" flex w-full items-end">
   <div class="flex flex-col items-start w-full">
-      <p>Elapsed time: {time}</p>
-      <p>Incorrect: {$incorrectLetters.length}</p>
+      <p>Time: {time}</p>
+      <p>attemps: {numberOfClicks}</p>
     </div>
     <button on:click={resetGame}>Clear</button>
   </div>
