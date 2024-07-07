@@ -101,7 +101,6 @@
 			} else {
 				numberOfClicks++;
 				triggerShake();
-        console.log(displayWord)
 			}
 		}
 
@@ -177,11 +176,13 @@
 			class="p-4 flex flex-col text-slate-900 items-start justify-start shadow-lg rounded-lg bg-slate-200 z-10 text-xl italic font-serif"
 		>
 			<p>To spark curiosity,</p>
+
 			<div class=" text-slate-900 text-left">
 				{#each displayWord as char}
 					<span class={` ${charactersChange(char)}`}>{char}</span>
 				{/each}
 			</div>
+
 			<p>to find answers.</p>
 		</button>
 		<input
@@ -204,8 +205,10 @@
 			>
 		</div>
 		<div class="flex flex-col items-center">
+			{#if displayWord.join('') !== wordToGuess}
 			{#each keys as row}
-				<div class="flex">
+				<div class="flex ">
+
 					{#each row as key}
 						<button
 							class="key {getKeyClass(key, $correctLetters, $incorrectLetters, focusedKey)}"
@@ -215,8 +218,14 @@
 							{key}
 						</button>
 					{/each}
+
+
 				</div>
 			{/each}
+			{/if}
+			{#if displayWord.join('') === wordToGuess}
+			<p class="text-3xl bg-purple-4 rounded-md p-4">You did it! Curiosity stikes again!</p>
+		{/if}
 		</div>
 	</div>
 </div>
