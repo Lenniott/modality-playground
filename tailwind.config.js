@@ -67,10 +67,10 @@ module.exports = {
         },
       },
       boxShadow: {
-        'a': 'rgba(0, 0, 0, .16) 0px 1px 4px',
-        'b': 'rgba(0, 0, 0, .1) 0px 1px 3px 0px, rgba(0, 0, 0, .06) 0px 1px 2px 0px',
-        'c': 'rgba(67, 71, 85, .27) 0px 0px .25em, rgba(90, 125, 188, .05) 0px .25em 1em',
-        'd': 'rgba(17, 17, 26, .1) 0px 0px 16px',
+        '1': 'rgba(0, 0, 0, .16) 0px 1px 4px',
+        '2': 'rgba(0, 0, 0, .1) 0px 1px 3px 0px, rgba(0, 0, 0, .06) 0px 1px 2px 0px',
+        '3': 'rgba(67, 71, 85, .27) 0px 0px .25em, rgba(90, 125, 188, .05) 0px .25em 1em',
+        '4': 'rgba(17, 17, 26, .1) 0px 0px 16px',
       },
       transitionTimingFunction: {
         'out-quint': 'cubic-bezier(.23, 1, .32, 1)',
