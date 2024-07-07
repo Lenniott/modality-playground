@@ -173,7 +173,7 @@
   <div class="flex flex-col gap-4 relative">
     <button on:click={focusInput} class="p-4 flex flex-wrap text-slate-900 items-start justify-start shadow-lg rounded-lg bg-slate-200 z-10 text-xl italic font-serif">
       <p>For curiosity to spark,</p>
-      <div>
+      <div class="flex flex-wrap text-slate-900 items-start justify-start gap-0.5">
         {#each displayWord as char}
           <span class="{char !== '_' ? '' : 'text-slate-400 font-thin'}">{char}</span>
         {/each}
@@ -195,7 +195,6 @@
       <div class="flex ">
         {#each row as key}
           <button 
-            aria-role="button"
             class="key {getKeyClass(key, $correctLetters, $incorrectLetters, focusedKey)}"
             on:click={() => handleKeyboardInput(key)}
             transition:fly={{ y: 20, duration: 500 }}
