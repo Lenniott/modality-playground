@@ -182,7 +182,6 @@
 					<span class={` ${charactersChange(char)}`}>{char}</span>
 				{/each}
 			</div>
-			<img src="https://i.ibb.co/yRC64KJ/me.webp" alt="Benjamin Mizrany profile" class="size-[72px] outline outline-2 outline-offset-2 outline-slate-900 rounded-full">
 			<p>to find answers.</p>
 		</button>
 		<input
