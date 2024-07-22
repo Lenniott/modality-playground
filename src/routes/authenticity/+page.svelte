@@ -1,5 +1,5 @@
 <script lang="ts">
-  import  Email  from '../email-interaction/components/email.svelte';
+  import Email from "./components/email.svelte";
     let container1Items: Array<{ id: number, part: string, option: string, name: string, order: number, score: number, feedback: string }>= [
         
     ];

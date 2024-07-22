@@ -64,11 +64,11 @@
 <div class="mt-4">
   <!-- Button to calculate score and show feedback -->
   <button class="p-2 bg-blue-500 text-white rounded" on:click={calculateScoreAndFeedback}>
-      Calculate Score and Show Feedback
+      see profile of email
   </button>
   <div class="mt-2">
-      <p><strong>Total Score:</strong> {totalScore}</p>
-      <p><strong>Feedbacks:</strong></p>
+      <p><strong>This should be a color profile</strong> {totalScore}</p>
+      <p><strong>Feedbacks with colors:</strong></p>
       <ul>
           {#each feedbacks as feedback}
               <li>{feedback}</li>

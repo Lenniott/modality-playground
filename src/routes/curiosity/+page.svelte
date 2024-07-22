@@ -4,6 +4,8 @@
 	import { derived } from 'svelte/store';
 	import { fade, fly } from 'svelte/transition';
 
+
+	let wordToGuess = 'be comfortable with the uncertainty in discovery';
 	// Keyboard configuration
 	const keys = [
 		['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
@@ -26,7 +28,7 @@
 	let guessedLetters: string[] = [];
 	let rightLetters: string[] = [];
 	let message: string = '';
-	let wordToGuess = 'be comfortable with the uncertainty in discovery';
+
 	let displayWord: string[] = wordToGuess
 		.split('')
 		.map((char) => (char === ' ' || char === '-' ? char : '_'));
@@ -154,7 +156,7 @@
 		}
 	});
 
-  function  charactersChange(char){
+  function  charactersChange(char: string){
     if(char === ' '){
       return 'mx-[2px]'
     }
