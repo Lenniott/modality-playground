@@ -65,7 +65,7 @@
       <p>{feedbackMessageWrong}</p>
       {/if}
       {#if feedback==="Correct!"}
-      <p>{feedbackMessageWrong}</p>
+      <p>{feedbackMessageRight}</p>
       {/if}
     {/if}
   
