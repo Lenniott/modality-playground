@@ -7,5 +7,13 @@ export default defineConfig({
 		alias: {
 		  $lib: '/src/lib'  // Sets an alias for the 'src/lib' directory
 		}
+	  },
+	  server: {
+		fs: {
+		  allow: [
+			'/Users/ben/Desktop/CODE/modality-playground/static',
+			// other allowed directories
+		  ],
+		},
 	  }
 });
